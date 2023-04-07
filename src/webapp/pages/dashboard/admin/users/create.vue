@@ -143,6 +143,7 @@ export default {
   components: { ErrorsList, FilesList },
   mixins: [Form, Roles, Locales, GlobalOverlay, GenericToast],
   layout: 'dashboard',
+  middleware: ['redirect-if-not-authenticated'],
   data() {
     return {
       form: {

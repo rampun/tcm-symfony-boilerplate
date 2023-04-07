@@ -42,6 +42,7 @@ export default {
   components: { ErrorsList },
   mixins: [Form, GlobalOverlay, GenericToast],
   layout: 'dashboard',
+  middleware: ['redirect-if-not-authenticated'],
   data() {
     return {
       form: {
