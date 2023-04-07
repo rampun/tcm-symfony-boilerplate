@@ -1,5 +1,18 @@
 schema:
   tables:
+    comments:
+      columns:
+        id:
+          primary_key: true
+          type: guid
+          fixed: true
+          length: 36
+          not_null: true
+          comment: '@UUID'
+        text:
+          type: string
+          length: 255
+          not_null: true
     doctrine_migration_versions:
       columns:
         version:

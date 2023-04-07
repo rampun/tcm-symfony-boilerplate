@@ -19,6 +19,11 @@ class DaoFactory implements \Symfony\Contracts\Service\ServiceSubscriberInterfac
     private $container = null;
 
     /**
+     * @var \App\Domain\Dao\CommentDao|null
+     */
+    private $commentDao = null;
+
+    /**
      * @var \App\Domain\Dao\DoctrineMigrationVersionDao|null
      */
     private $doctrineMigrationVersionDao = null;
@@ -36,6 +41,20 @@ class DaoFactory implements \Symfony\Contracts\Service\ServiceSubscriberInterfac
     public function __construct(\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
+    }
+
+    public function getCommentDao() : \App\Domain\Dao\CommentDao
+    {
+        if (!$this->commentDao) {
+            $this->commentDao = $this->container->get('App\\Domain\\Dao\\CommentDao');
+        }
+
+        return $this->commentDao;
+    }
+
+    public function setCommentDao(\App\Domain\Dao\CommentDao $commentDao) : void
+    {
+        $this->commentDao = $commentDao;
     }
 
     public function getDoctrineMigrationVersionDao() : \App\Domain\Dao\DoctrineMigrationVersionDao
@@ -86,6 +105,7 @@ class DaoFactory implements \Symfony\Contracts\Service\ServiceSubscriberInterfac
     public static function getSubscribedServices() : array
     {
         return [
+            'App\\Domain\\Dao\\CommentDao' => 'App\\Domain\\Dao\\CommentDao',
             'App\\Domain\\Dao\\DoctrineMigrationVersionDao' => 'App\\Domain\\Dao\\DoctrineMigrationVersionDao',
             'App\\Domain\\Dao\\ResetPasswordTokenDao' => 'App\\Domain\\Dao\\ResetPasswordTokenDao',
             'App\\Domain\\Dao\\UserDao' => 'App\\Domain\\Dao\\UserDao',

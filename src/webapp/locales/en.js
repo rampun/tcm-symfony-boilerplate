@@ -53,6 +53,13 @@ export default {
       },
       profile_picture: 'Profile picture',
     },
+    comment: {
+      comment: {
+        label: 'Comment',
+        label_required: 'Comment *',
+        placeholder: 'Enter comment',
+      },
+    },
     nav: {
       login: 'Login',
       logout: 'Logout',
@@ -60,6 +67,7 @@ export default {
       dashboard: 'Dashboard',
       administration: 'Administration',
       users: 'Users',
+      comments: 'Comments',
     },
     list: {
       actions: 'Actions',
