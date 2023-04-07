@@ -30,6 +30,12 @@
       :active="$route.path === localePath({ name: 'dashboard' })"
       >{{ $t('common.nav.dashboard') }}</b-nav-item
     >
+    <b-nav-item
+      :to="localePath({ name: 'dashboard-comments' })"
+      :active="$route.path === localePath({ name: 'dashboard-comments' })"
+      >{{ $t('common.nav.comments') }}</b-nav-item
+    >
+
     <div v-if="isGranted(ADMINISTRATOR)">
       <b-nav-text>{{ $t('common.nav.administration') }}</b-nav-text>
       <b-nav-item
