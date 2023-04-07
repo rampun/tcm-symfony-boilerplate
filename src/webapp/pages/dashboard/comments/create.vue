@@ -53,8 +53,6 @@ export default {
     async onSubmit() {
       this.resetFormErrors()
       this.displayGlobalOverlay()
-
-      console.log(this.form.text)
       try {
         const result = await this.$graphql.request(CreateCommentMutation, {
           text: this.form.text,
@@ -64,7 +62,7 @@ export default {
 
         this.$router.push(
           this.localePath({
-            name: 'dashboard-comment-id',
+            name: 'dashboard-comments-id',
             params: { id: result.createComment.id },
           })
         )

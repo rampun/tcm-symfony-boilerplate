@@ -30,9 +30,9 @@
         </b-button>
       </b-form>
     </b-card>
-    <!-- <b-card v-if="!selfUpdate" class="mt-3" border-variant="danger">
+    <b-card v-if="!selfUpdate" class="mt-3" border-variant="danger">
       <ConfirmDelete :on-confirm="onDelete" />
-    </b-card> -->
+    </b-card>
   </div>
 </template>
 
@@ -46,9 +46,12 @@ import { GlobalOverlay } from '@/mixins/global-overlay'
 import { Auth } from '@/mixins/auth'
 import { Images } from '@/mixins/images'
 import { GenericToast } from '@/mixins/generic-toast'
+import ErrorsList from '@/components/forms/ErrorsList'
+import { DeleteCommentMutation } from '@/graphql/comments/delete_comment.mutation'
+import ConfirmDelete from '@/components/forms/ConfirmDelete'
 
 export default {
-  //   components: { ConfirmDelete, ErrorsList },
+  components: { ConfirmDelete, ErrorsList },
   mixins: [Form, Roles, Locales, GlobalOverlay, Auth, Images, GenericToast],
   layout: 'dashboard',
   async asyncData(context) {
@@ -98,6 +101,22 @@ export default {
         }
       } catch (e) {
         this.hydrateFormErrors(e)
+      } finally {
+        this.hideGlobalOverlay()
+      }
+    },
+    async onDelete() {
+      this.displayGlobalOverlay()
+
+      try {
+        await this.$graphql.request(DeleteCommentMutation, {
+          id: this.$route.params.id,
+        })
+
+        this.genericSuccessToast()
+        this.$router.push(this.localePath({ name: 'dashboard-comments' }))
+      } catch (e) {
+        this.$nuxt.error(e)
       } finally {
         this.hideGlobalOverlay()
       }
